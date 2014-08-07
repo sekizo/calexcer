@@ -4,3 +4,8 @@ source 'https://rubygems.org'
 gemspec
 
 gem "spreadsheet", "~> 0.9.7"
+
+group :development do
+  gem "guard"
+  gem "guard-rspec"
+end
