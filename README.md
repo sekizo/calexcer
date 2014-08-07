@@ -1,6 +1,6 @@
 # Calexcer
 
-TODO: Write a gem description
+Convert excel sheet to object as calendar.
 
 ## Installation
 
@@ -18,7 +18,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    require "calexcer"
+    Calexcer::Vertical.new("PATH/TO/excel.xls").sheet(0)
+    # => {
+          "2014-08-06" => ["some event 1", "some event 2", ....],
+          "2014-08-31" => ["some event on the day", "final day event"]
+          }
+
 
 ## Contributing
 

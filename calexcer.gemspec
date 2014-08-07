@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Calexcer::VERSION
   spec.authors       = ["sekizo"]
   spec.email         = ["sekizoworld@mac.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Convert excel sheet to object as calendar.}
+  spec.description   = %q{Convert excel sheet to object as calendar.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
