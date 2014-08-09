@@ -6,3 +6,4 @@ Calexcer::SampleDir = File.join(Calexcer::Root, "spec/sample")
 
 Calexcer::Samples = {}
 Calexcer::Samples[:vertical] = File.join(Calexcer::SampleDir, "vertical_calendar.xls")
+Calexcer::Samples[:horizontal] = File.join(Calexcer::SampleDir, "horizontal_calendar.xls")

@@ -14,8 +14,10 @@ module Calexcer
       _events = {}
       self.to_hash.each do |date, events|
         events.each do |event|
-          _events[event] ||= []
-          _events[event] << date
+          unless event.nil?
+            _events[event] ||= []
+            _events[event] << date
+          end
         end
       end
       

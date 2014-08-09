@@ -5,6 +5,7 @@ module Calexcer
     
     attr_reader :year, :month
     
+    #--------------------#
     protected
       
       attr_accessor :row_start, :row_end, :col_start, :col_end
