@@ -19,11 +19,8 @@ Or install it yourself as:
 ## Usage
 
     require "calexcer"
-    Calexcer::Vertical.new("PATH/TO/excel.xls").sheet(0)
-    # => {
-          "2014-08-06" => ["some event 1", "some event 2", ....],
-          "2014-08-31" => ["some event on the day", "final day event"]
-          }
+    Calexcer::Book.new("PATH/TO/excel.xls").sheets[0].vertical.to_hash
+    # => { "2014-08-06" => ["some event 1", "some event 2"], "2014-08-31" => ["some event on the day", "final day event"] }
 
 
 ## Contributing
