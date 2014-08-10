@@ -36,16 +36,4 @@ describe Calexcer::HorizontalSheet do
     end
   end
   
-  describe "#to_json" do
-    example "get json calendar" do
-      expect(sheet.to_json).to be_a(String)
-    end
-  end # describe "#to_json"
-  
-  describe "#to_reversed_json" do
-    example "get reversed json calendar" do
-      expect(sheet.to_r_json).to be_a(String)
-    end
-  end # describe "#to_reversed_json"
-  
 end

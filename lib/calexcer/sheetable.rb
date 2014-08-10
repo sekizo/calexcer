@@ -1,5 +1,3 @@
-require "json"
-
 module Calexcer
   module Sheetable
     EXCEL_DATE_START = DateTime.new(1900,1,1).freeze
@@ -24,15 +22,7 @@ module Calexcer
       _events
     end
     alias_method :to_r_hash, :to_reversed_hash
-    
-    def to_json
-      self.to_hash.to_json
-    end
-    
-    def to_reversed_json
-      self.to_reversed_hash.to_json
-    end
-    alias_method :to_r_json, :to_reversed_json
+    alias_method :to_hashr, :to_reversed_hash
     
     #--------------------#
     protected
@@ -42,12 +32,12 @@ module Calexcer
     #--------------------#
     private
       
-      def dimensions
-        @row_start, @row_end, @col_start, @col_end = self.sheet.dimensions
-      end
-      
       def cell_to_datetime(cell)
         EXCEL_DATE_START + cell.value - 2
+      end
+      
+      def dimensions
+        @row_start, @row_end, @col_start, @col_end = self.sheet.dimensions
       end
       
       def method_missing(name, *args, &block)
@@ -55,6 +45,19 @@ module Calexcer
           self.sheet.__send__(name, *args, &block)
         rescue => e
           super
+        end
+      end
+      
+      def normalize(cell)
+        case cell
+        when Spreadsheet::Formula
+          cell_to_datetime(cell).to_date
+        when DateTime, Date
+          cell.to_date
+        when Numeric
+          Date.new(self.current_year, self.current_month, cell)
+        else
+          cell
         end
       end
       

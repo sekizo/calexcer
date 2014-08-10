@@ -20,20 +20,4 @@ describe Calexcer::Sheetable do
       end.to raise_exception(Calexcer::MethodNotImplementedError)
     end
   end
-  
-  describe ".to_json" do
-    example "raise Calexcer::MethodNotImplementedError" do
-      expect do
-        sheet.to_json
-      end.to raise_exception(Calexcer::MethodNotImplementedError)
-    end
-  end
-  
-  describe ".to_reversed_json" do
-    example "raise Calexcer::MethodNotImplementedError" do
-      expect do
-        sheet.to_reversed_json
-      end.to raise_exception(Calexcer::MethodNotImplementedError)
-    end
-  end
 end

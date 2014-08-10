@@ -12,7 +12,7 @@ module Calexcer
     
     def to_hash
       self.events = {}
-      dates = {}
+      self.dates = {}
       
       self.loop do |cell|
         v = normalize(cell)
@@ -20,7 +20,8 @@ module Calexcer
         case v
         when nil
         when Date
-          dates[self.x]  = v
+          self.current_date = v
+          self.dates[self.x]  = v
         when String
           self.cell_string(v, dates[self.x])
         end
@@ -33,10 +34,12 @@ module Calexcer
     protected
       
       attr_accessor :current_event
-      attr_accessor :events
+      attr_accessor :events, :dates
       
       def cell_string(string, date)
-        if event_definition?(string)
+        case
+        when string.empty?
+        when event_definition?(string)
           self.current_event = string
         else
           if (date) && (self.current_event)
@@ -50,6 +53,12 @@ module Calexcer
         self.loop_horizontal(&block)
       end
       
+      def horizontal_loop_unit_will_start(col)
+        super(col)
+        self.current_year = self.year
+        self.current_month = self.month
+      end
+      
       def horizontal_loop_unit_did_end
         super
         self.current_event = nil
@@ -58,22 +67,9 @@ module Calexcer
     #--------------------#
     private
       
-      def event_definition?(cell)
-        (self.current_event.nil?) && (self.x == 0) && (! cell.empty?)
+      def event_definition?(string)
+        (self.current_event.nil?) && (self.x == 0) && (! string.empty?)
       end
       
-      def normalize(cell)
-        case cell
-        when Spreadsheet::Formula
-          cell_to_datetime(cell).to_date
-        when DateTime
-          cell.to_date
-        when Numeric
-          Date.new(self.year, self.month, cell.to_i)
-        else
-          cell
-        end
-      end
-    
   end
 end
