@@ -24,10 +24,10 @@ Or install it yourself as:
     v_sheet = sheet.vertical_sheet                  # => Calexcer::VerticalSheet
 
     v_sheet.to_hash
-    # => { date_1 => ["some event 1", "some event 2"], date_2 => ["some event on the day", "final day event"] }
+    # => { date_1 => ["one day event", "repeat event 1"], date_2 => ["repeat event 1", "repeat event 2"], date_3 => ["repeat event 2"] }
 
     v_sheet.to_hashr
-    # => { "repeat event 1" => [date_1, date_2, ...], "repeat event 2" => [date_2, date_3, ...] }
+    # => { "one day event" => [date_1], "repeat event 1" => [date_1, date_2], "repeat event 2" => [date_2, date_3] }
 
 ## Contributing
 
