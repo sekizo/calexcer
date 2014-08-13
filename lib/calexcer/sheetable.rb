@@ -1,7 +1,5 @@
 module Calexcer
-  module Sheetable
-    EXCEL_DATE_START = DateTime.new(1900,1,1).freeze
-    
+  module Sheetable    
     attr_reader :sheet
     
     def to_hash
@@ -32,10 +30,6 @@ module Calexcer
     #--------------------#
     private
       
-      def cell_to_datetime(cell)
-        EXCEL_DATE_START + cell.value - 2
-      end
-      
       def dimensions
         @row_start, @row_end, @col_start, @col_end = self.sheet.dimensions
       end
@@ -47,19 +41,6 @@ module Calexcer
           super
         end
       end
-      
-      def normalize(cell)
-        case cell
-        when Spreadsheet::Formula
-          cell_to_datetime(cell).to_date
-        when DateTime, Date
-          cell.to_date
-        when Numeric
-          Date.new(self.current_year, self.current_month, cell)
-        else
-          cell
-        end
-      end
-      
+    
   end
 end

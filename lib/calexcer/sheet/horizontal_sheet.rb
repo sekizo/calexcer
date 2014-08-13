@@ -5,6 +5,8 @@ module Calexcer
   class HorizontalSheet < Calexcer::Sheet
     include Calexcer::Loopable
     
+    attr_accessor :year, :month
+    
     def initialize(sheet, year: nil, month: nil)
       super(sheet)
       self.initialize_year_month(year: year, month: month)
@@ -15,15 +17,11 @@ module Calexcer
       self.dates = {}
       
       self.loop do |cell|
-        v = normalize(cell)
-        
-        case v
-        when nil
+        case cell.value
         when Date
-          self.current_date = v
-          self.dates[self.x]  = v
+          self.cell_as_date(cell.value)
         when String
-          self.cell_string(v, dates[self.x])
+          self.cell_as_string(cell.value, dates[self.x])
         end
       end
       
@@ -36,7 +34,12 @@ module Calexcer
       attr_accessor :current_event
       attr_accessor :events, :dates
       
-      def cell_string(string, date)
+      def cell_as_date(date)
+        self.current_date = date
+        self.dates[self.x]  = date
+      end
+      
+      def cell_as_string(string, date)
         case
         when string.empty?
         when event_definition?(string)

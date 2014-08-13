@@ -1,4 +1,6 @@
 require "calexcer/sheetable"
+require "calexcer/cell"
+
 module Calexcer
   class Sheet
     include Calexcer::Sheetable
@@ -16,6 +18,10 @@ module Calexcer
       self.sheet = sheet
     end
     
+    def cell(row, col, cell_class: Calexcer::Cell)
+      cell_class.new(self.sheet[row, col])
+    end
+    
     #--------------------#
     private
       
@@ -26,7 +32,7 @@ module Calexcer
       def method_missing(name, *args, &block)
         begin
           if Calexcer.const_defined?(sheet_class(name))
-            Calexcer.const_get(sheet_class(name)).new(self.sheet)
+            Calexcer.const_get(sheet_class(name)).new(self.sheet, *args)
           else
             self.sheet.__send__(name, *args, &block)
           end

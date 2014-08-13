@@ -25,3 +25,6 @@ log/
 private
 .project
 bundle/
+private.*
+.DS_Store
+._*

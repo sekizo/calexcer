@@ -3,7 +3,7 @@ module Calexcer
     attr_reader :current_row, :current_col
     attr_reader :x, :y
     
-    attr_reader :year, :month
+    attr_accessor :year, :month
     
     #--------------------#
     protected
@@ -12,8 +12,6 @@ module Calexcer
       
       attr_writer :current_row, :current_col
       attr_writer :x, :y
-      
-      attr_writer :year, :month
       
       attr_reader :current_date
       attr_accessor :current_year, :current_month
@@ -36,7 +34,10 @@ module Calexcer
       end
       
       def current_cell
-        self.sheet[self.current_row, self.current_col]
+        cell = self.cell(self.current_row, self.current_col)
+        cell.year = self.year
+        cell.month = self.month
+        cell
       end
       
       def loop(&block)

@@ -14,14 +14,11 @@ module Calexcer
       @events = {}
       
       self.loop do |cell|
-        v = normalize(cell)
-        case v
+        case cell.value
         when Date
-          self.current_date = v
-        when Integer
-          self.current_date = Date.new(self.current_year, self.current_month, v)
+          self.cell_as_date(cell.value)
         else
-          self.add_event(self.current_date, v)
+          self.cell_as_string(cell.value, self.current_date)
         end
       end
       
@@ -37,8 +34,22 @@ module Calexcer
         @events[date] << event unless event.nil?
       end
       
+      def cell_as_date(date)
+        self.current_date = date
+      end
+      
+      def cell_as_string(string, date)
+        self.add_event(self.current_date, string)
+      end
+      
       def loop(&block)
         self.loop_vertical(&block)
+      end
+      
+      def vertical_loop_unit_will_start(row)
+        super(row)
+        self.current_year = self.year
+        self.current_month = self.month
       end
       
       def vertical_loop_unit_did_end
