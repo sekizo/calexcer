@@ -15,11 +15,15 @@ module Calexcer
       self.events = {}
       
       self.loop do |cell|
-        case cell.value
-        when Date
-          self.cell_as_date(cell.value)
+        if (self.ignore_header) && (! cell.value.nil?)
+          self.ignore_header = false
         else
-          self.cell_as_string(cell.value, self.current_date)
+          case cell.value
+          when Date
+            self.cell_as_date(cell.value)
+          else
+            self.cell_as_string(cell.value, self.current_date)
+          end
         end
       end
       
@@ -33,24 +37,19 @@ module Calexcer
       attr_accessor :ignore_header
       
       def add_event(date, event)
-        return nil if date.nil?
+        return nil if (date.nil?)||(event.nil?)
         self.events[date] ||= []
-        self.events[date] << event unless event.nil?
+        self.events[date] << event
       end
       
       def cell_as_date(date)
-        if self.ignore_header
-          self.ignore_header = false
-        else
-          @dates ||= {}
-          @dates[self.current_row] = date
-          self.current_date = date
-        end
+        @dates ||= {}
+        @dates[self.current_row] = date
+        self.current_date = date
       end
       
       def cell_as_string(string, date)
-        self.add_event(self.current_date, string) unless self.ignore_header
-        self.ignore_header = false
+        self.add_event(self.current_date, string)
       end
       
       def loop(&block)
