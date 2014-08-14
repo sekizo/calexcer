@@ -12,7 +12,7 @@ module Calexcer
       self.initialize_year_month(year: year, month: month)
     end
     
-    def to_hash
+    def to_hash(ignore_header: true)
       self.events = {}
       self.dates = {}
       

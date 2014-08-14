@@ -2,13 +2,13 @@ module Calexcer
   module Sheetable    
     attr_reader :sheet
     
-    def to_hash
+    def to_hash(ignore_header: true)
       raise Calexcer::MethodNotImplementedError
     end
     
-    def to_reversed_hash
+    def to_reversed_hash(ignore_header: true)
       _events = {}
-      self.to_hash.each do |date, events|
+      self.to_hash(ignore_header: ignore_header).each do |date, events|
         events.each do |event|
           unless event.nil?
             _events[event] ||= []
