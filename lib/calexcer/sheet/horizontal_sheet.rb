@@ -12,11 +12,11 @@ module Calexcer
       self.initialize_year_month(year: year, month: month)
     end
     
-    def to_hash(ignore_header: true)
+    def to_hash(*args)
       self.events = {}
       self.dates = {}
       
-      self.loop do |cell|
+      self.loop(*args) do |cell|
         case cell.value
         when Date
           self.cell_as_date(cell.value)
@@ -52,8 +52,8 @@ module Calexcer
         end
       end
       
-      def loop(&block)
-        self.loop_horizontal(&block)
+      def loop(*args, &block)
+        self.loop_horizontal(*args, &block)
       end
       
       def horizontal_loop_unit_will_start(col)

@@ -40,12 +40,12 @@ module Calexcer
         cell
       end
       
-      def loop(&block)
+      def loop(*args, &block)
         raise Calexcer::MethodNotImplementedError
       end
       
-      def loop_vertical(&block)
-        loop_will_start
+      def loop_vertical(*args, &block)
+        loop_will_start(*args)
         (self.col_start..self.col_end).each do |col|
           horizontal_loop_unit_will_start(col)
           (self.row_start..self.row_end).each do |row|
@@ -60,8 +60,8 @@ module Calexcer
         loop_did_end
       end
       
-      def loop_horizontal(&block)
-        loop_will_start
+      def loop_horizontal(*args, &block)
+        loop_will_start(*args)
         (self.row_start..self.row_end).each do |row|
           vertical_loop_unit_will_start(row)
           (self.col_start..self.col_end).each do |col|
@@ -76,8 +76,8 @@ module Calexcer
         loop_did_end
       end
         
-      def loop_will_start
-        dimensions
+      def loop_will_start(*args)
+        dimensions(*args)
       end
       
       def loop_did_end

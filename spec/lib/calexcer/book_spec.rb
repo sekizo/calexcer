@@ -23,9 +23,9 @@ describe Calexcer::Book do
       expect(calexcer.sheets).to be_a(Array)
     end
     
-    example "includes Calexcer::Sheetable" do
+    example "includes Calexcer::Sheet" do
       calexcer.sheets.each do |sheet|
-        expect(sheet).to be_a(Calexcer::Sheetable)
+        expect(sheet).to be_a(Calexcer::Sheet)
       end
     end
   end

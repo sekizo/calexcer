@@ -1,4 +1,5 @@
 require "spec_helper"
+require "lib/shared_spec/shared_hashable_spec"
 
 describe Calexcer::VerticalSheet do
   let(:sample) { Calexcer::Samples[:vertical] }
@@ -25,6 +26,9 @@ describe Calexcer::VerticalSheet do
     example "block to get non-events" do
       expect(sheet.to_hash.collect{|k,v| v}.flatten).not_to be_include("Description of the calendar")
     end
+    
+    it_behaves_like "specified dimensions"
+    
   end # describe "#to_hash"
   
   describe "#to_reversed_hash" do

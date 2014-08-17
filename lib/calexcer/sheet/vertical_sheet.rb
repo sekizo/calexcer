@@ -10,11 +10,13 @@ module Calexcer
       self.initialize_year_month(year: year, month: month)
     end
     
-    def to_hash(ignore_header: true)
-      self.ignore_header = ignore_header
+    def to_hash(*args)
+      hash_args = args.shift||{}
+      
+      self.ignore_header = hash_args[:ignore_header]||true
       self.events = {}
       
-      self.loop do |cell|
+      self.loop(hash_args) do |cell|
         if (self.ignore_header) && (! cell.value.nil?)
           self.ignore_header = false
         else
@@ -52,8 +54,8 @@ module Calexcer
         self.add_event(self.current_date, string)
       end
       
-      def loop(&block)
-        self.loop_vertical(&block)
+      def loop(*args, &block)
+        self.loop_vertical(*args, &block)
       end
       
       def vertical_loop_unit_will_start(row)

@@ -1,4 +1,5 @@
 require "spec_helper"
+require "lib/shared_spec/shared_hashable_spec"
 
 describe Calexcer::HorizontalSheet do
   let(:sample) { Calexcer::Samples[:horizontal] }
@@ -20,6 +21,9 @@ describe Calexcer::HorizontalSheet do
       expect(events[Date.new(2014, 8, 3)]).to be_include("sunday game")
       expect(events[Date.new(2014, 8, 31)]).to be_include("live")
     end
+    
+    it_behaves_like "specified dimensions"
+    
   end
   
   describe "#to_reversed_hash" do

@@ -1,9 +1,11 @@
-require "calexcer/sheetable"
+require "calexcer/hashable"
 require "calexcer/cell"
 
 module Calexcer
   class Sheet
-    include Calexcer::Sheetable
+    include Calexcer::Hashable
+    
+    attr_reader :sheet
     
     def self.sheet_class_name(name)
       _name = []
@@ -22,8 +24,28 @@ module Calexcer
       cell_class.new(self.sheet[row, col])
     end
     
+    def [](row, col)
+      self.sheet[row, col]
+    end
+    
+    #--------------------#
+    protected
+      
+      attr_writer :sheet
+    
     #--------------------#
     private
+      
+      def dimensions(*args)
+        arg = args.shift||{}
+        
+        @row_start, @row_end, @col_start, @col_end = self.sheet.dimensions
+        
+        @row_start =  arg[:row_start] || @row_start
+        @row_end =    arg[:row_end]   || @row_end
+        @col_start =  arg[:col_start] || @col_start
+        @col_end =    arg[:col_end]   || @col_end
+      end
       
       def sheet_class(name)
         self.class.sheet_class_name(name)

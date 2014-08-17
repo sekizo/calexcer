@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Calexcer::Sheetable do
+describe Calexcer::Hashable do
   let(:sample) { Calexcer::Samples[:vertical] }
   let(:calexcer) { Calexcer::Book.new(sample) }
   let(:sheet) { calexcer.sheets.first }

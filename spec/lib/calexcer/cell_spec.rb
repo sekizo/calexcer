@@ -6,6 +6,7 @@ describe Calexcer::Cell do
   let(:sheet) { calexcer.sheets.first }
   
   let(:target) { described_class.new(sheet[0, 0], year: 2014, month: 8) }
+  
   describe "#value" do
     context "nill cell" do
       before { allow(target).to receive(:cell) { nil } }

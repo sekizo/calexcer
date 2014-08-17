@@ -5,8 +5,8 @@ describe Calexcer::Sheet do
   let(:calexcer) { Calexcer::Book.new(sample) }
   let(:sheet) { calexcer.sheets.first }
   
-  example "sheetable" do
-    expect(sheet).to be_a(Calexcer::Sheetable)
+  example "Hashable" do
+    expect(sheet).to be_a(Calexcer::Hashable)
   end
   
   describe ".sheet_class_name" do
